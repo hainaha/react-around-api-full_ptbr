@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
 
-mongoose.connect('mongodb://localhost:27017/aroundb').catch(() => {
+mongoose.connect('mongodb://localhost:27017/aroundb').catch((res) => {
   const ERROR_CODE = 500;
   res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
 });
