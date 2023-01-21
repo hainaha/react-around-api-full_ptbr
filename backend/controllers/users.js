@@ -13,6 +13,25 @@ module.exports.getUsers = (req, res) => {
     });
 };
 
+module.exports.getMyUser = (req, res) => {
+  User.findById(req.user._id)
+    .orFail()
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        const ERROR_CODE = 404;
+        res
+          .status(ERROR_CODE)
+          .send({ message: 'Nenhum usuário encontrado com esse id' });
+      } else {
+        const ERROR_CODE = 500;
+        res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+      }
+    });
+};
+
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .orFail()
@@ -107,7 +126,7 @@ module.exports.login = (req, res) => {
       const token = jwt.sign({ _id: user._id }, 'BF7DC92FA0DCB24F', {
         expiresIn: '7d',
       });
-      res.send(token);
+      res.send({ token });
     })
     .catch((err) => {
       res.status(401).send({ message: err.message });

@@ -29,11 +29,47 @@ module.exports.createCard = (req, res) => {
     });
 };
 
+// module.exports.deleteCard = (req, res) => {
+//   const userId = req.user._id;
+//   Card.findByIdAndRemove(req.params.cardId)
+//     .orFail()
+//     .then((card) => {
+//       res.send(card);
+//     })
+//     .catch((err) => {
+//       if (err.name === 'CastError') {
+//         const ERROR_CODE = 404;
+//         res
+//           .status(ERROR_CODE)
+//           .send({ message: 'Nenhum cartão encontrado com esse id' });
+//       } else {
+//         const ERROR_CODE = 500;
+//         res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+//       }
+//     });
+// };
+
 module.exports.deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  const userId = req.user._id;
+  Card.findById(req.params.cardId)
     .orFail()
     .then((card) => {
-      res.send(card);
+      if (card.owner.toString() === userId) {
+        Card.deleteOne(card)
+          .orFail()
+          .then(res.send({ message: 'Cartão excluído com sucesso' }))
+          .catch((err) => {
+            const ERROR_CODE = 500;
+            res
+              .status(ERROR_CODE)
+              .send({ message: 'Um erro ocorreu no servidor' });
+          });
+      } else {
+        const ERROR_CODE = 403;
+        res
+          .status(ERROR_CODE)
+          .send({ message: 'Usuário não autorizado a excluir cartão' });
+      }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
