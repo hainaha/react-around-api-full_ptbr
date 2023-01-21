@@ -1,0 +1,25 @@
+.header__menu-button {
+  background-image: url(../../../images/menu_icon.png);
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: -44px;
+  right: 0;
+}
+
+.header__menu-button:hover,
+.header__menu-button:focus {
+  background-image: url(../../../images/menu_icon_hover.png);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .header__menu-button {
+    width: 40px;
+    height: 40px;
+    right: -44px;
+  }
+}

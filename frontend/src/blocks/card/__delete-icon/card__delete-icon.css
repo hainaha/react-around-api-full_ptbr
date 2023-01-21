@@ -1,0 +1,18 @@
+.card__delete-icon {
+  background-image: url(../../../images/trash.svg);
+  background-size: contain;
+  width: 18px;
+  height: 19px;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+}
+
+.card__delete-icon:hover,
+.card__delete-icon:focus {
+  background-image: url(../../../images/trash_hover.svg);
+}

@@ -1,0 +1,11 @@
+.edit-profile__input {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px solid #000000cc;
+  box-sizing: border-box;
+  height: 26px;
+  margin-bottom: 30px;
+  width: 100%;
+}

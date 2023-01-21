@@ -1,0 +1,25 @@
+.add-button {
+  border: 2px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 35px;
+  width: 90%;
+  max-width: 282px;
+  padding: 5px;
+  margin-bottom: 36px;
+  box-sizing: border-box;
+}
+
+.add-button:hover,
+.add-button:focus {
+  border: 2px solid #545454;
+  color: #545454;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .add-button {
+    width: 150px;
+    margin: 0;
+  }
+}

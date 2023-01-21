@@ -1,0 +1,8 @@
+.card__title-container {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 24px 15px 24px 21px;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: space-between;
+}

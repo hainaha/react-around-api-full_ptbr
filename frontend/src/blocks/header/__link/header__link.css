@@ -1,0 +1,19 @@
+.header__link {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.57;
+  text-align: right;
+  color: #ffffff;
+  background-color: #000000;
+  cursor: pointer;
+  margin: 34px 30px;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 600px) {
+  .header__link {
+    font-size: 18px;
+    line-height: 1.22;
+    margin: 51px 0;
+  }
+}

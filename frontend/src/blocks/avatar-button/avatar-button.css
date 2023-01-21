@@ -1,0 +1,20 @@
+.avatar-button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}
+
+.avatar-button:hover,
+.avatar-button:focus {
+  background-image: url(../../images/edit_avatar.png);
+  background-color: #000000cc;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}

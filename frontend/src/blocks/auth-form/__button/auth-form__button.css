@@ -1,0 +1,27 @@
+.auth-form__button {
+  border: none;
+  background-color: #ffffff;
+  border-radius: 2px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  width: 100%;
+  padding: 14px;
+  margin-top: 214px;
+}
+
+.auth-form__button:hover,
+.auth-form__button:focus {
+  background: #ffffff;
+  opacity: 0.85;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form__button {
+    padding: 14px;
+    font-size: 18px;
+  }
+}

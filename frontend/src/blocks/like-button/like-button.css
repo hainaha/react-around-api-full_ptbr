@@ -1,0 +1,16 @@
+.like-button {
+  background-image: url(../../images/heart.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 21px;
+  height: 19px;
+  border: none;
+  margin: 5px 0 0;
+  background-color: #ffffff;
+}
+
+.like-button:hover,
+.like-button:focus {
+  background-image: url(../../images/heart_hover.svg);
+  cursor: pointer;
+}

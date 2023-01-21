@@ -1,0 +1,26 @@
+.edit-profile__save {
+  border: none;
+  background-color: #000000;
+  border-radius: 2px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+}
+
+.edit-profile__save:hover,
+.edit-profile__save:focus {
+  background-color: #000000cc;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .edit-profile__save {
+    padding: 18px;
+    font-size: 18px;
+  }
+}

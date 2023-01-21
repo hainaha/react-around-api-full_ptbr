@@ -1,0 +1,8 @@
+.like-button_active {
+  background-image: url(../../../images/heart_active.svg);
+}
+
+.like-button_active:hover,
+.like-button_active:focus {
+  background-image: url(../../../images/heart_active.svg);
+}

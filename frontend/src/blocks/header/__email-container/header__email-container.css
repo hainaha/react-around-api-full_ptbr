@@ -1,0 +1,4 @@
+.header__email-container {
+  display: flex;
+  gap: 56px;
+}

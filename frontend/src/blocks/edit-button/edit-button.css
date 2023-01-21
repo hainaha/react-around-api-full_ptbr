@@ -1,0 +1,23 @@
+.edit-button {
+  background-image: url(../../images/edit_button.png);
+  background-size: contain;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background-color: #000000;
+  display: inline;
+  margin: 0;
+}
+
+.edit-button:hover,
+.edit-button:focus {
+  background-image: url(../../images/edit_button_hover.png);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .edit-button {
+    width: 24px;
+    height: 24px;
+  }
+}
