@@ -3,7 +3,6 @@ const {
   getUsers,
   getMyUser,
   getUserById,
-  createUser,
   updateUser,
   updateUserAvatar,
 } = require('../controllers/users');

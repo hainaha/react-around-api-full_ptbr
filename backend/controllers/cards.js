@@ -1,17 +1,21 @@
 const Card = require('../models/card');
+const ServerError = require('../errors/server-err');
+const BadRequestError = require('../errors/bad-request-err');
+const NotFoundError = require('../errors/not-found-err');
+const ForbiddenError = require('../errors/forbidden-err');
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((card) => {
       res.send(card);
     })
     .catch(() => {
-      const ERROR_CODE = 500;
-      res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
-    });
+      throw new ServerError('Ocorreu um erro no servidor');
+    })
+    .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
   Card.create({ name, link, owner })
@@ -20,36 +24,15 @@ module.exports.createCard = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        const ERROR_CODE = 400;
-        res.status(ERROR_CODE).json({ message: err.errors.link.message });
+        throw new BadRequestError(err.errors.link.message);
       } else {
-        const ERROR_CODE = 500;
-        res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+        throw new ServerError('Ocorreu um erro no servidor');
       }
-    });
+    })
+    .catch(next);
 };
 
-// module.exports.deleteCard = (req, res) => {
-//   const userId = req.user._id;
-//   Card.findByIdAndRemove(req.params.cardId)
-//     .orFail()
-//     .then((card) => {
-//       res.send(card);
-//     })
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         const ERROR_CODE = 404;
-//         res
-//           .status(ERROR_CODE)
-//           .send({ message: 'Nenhum cartão encontrado com esse id' });
-//       } else {
-//         const ERROR_CODE = 500;
-//         res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
-//       }
-//     });
-// };
-
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   const userId = req.user._id;
   Card.findById(req.params.cardId)
     .orFail()
@@ -59,32 +42,23 @@ module.exports.deleteCard = (req, res) => {
           .orFail()
           .then(res.send({ message: 'Cartão excluído com sucesso' }))
           .catch((err) => {
-            const ERROR_CODE = 500;
-            res
-              .status(ERROR_CODE)
-              .send({ message: 'Um erro ocorreu no servidor' });
+            throw new ServerError('Ocorreu um erro no servidor');
           });
       } else {
-        const ERROR_CODE = 403;
-        res
-          .status(ERROR_CODE)
-          .send({ message: 'Usuário não autorizado a excluir cartão' });
+        throw new ForbiddenError('Usuário não autorizado a excluir cartão');
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        const ERROR_CODE = 404;
-        res
-          .status(ERROR_CODE)
-          .send({ message: 'Nenhum cartão encontrado com esse id' });
+        throw new NotFoundError('Nenhum cartão encontrado com esse id');
       } else {
-        const ERROR_CODE = 500;
-        res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+        throw new ServerError('Ocorreu um erro no servidor');
       }
-    });
+    })
+    .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -96,18 +70,15 @@ module.exports.likeCard = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        const ERROR_CODE = 404;
-        res
-          .status(ERROR_CODE)
-          .send({ message: 'Nenhum cartão encontrado com esse id' });
+        throw new NotFoundError('Nenhum cartão encontrado com esse id');
       } else {
-        const ERROR_CODE = 500;
-        res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+        throw new ServerError('Ocorreu um erro no servidor');
       }
-    });
+    })
+    .catch(next);
 };
 
-module.exports.dislikeCard = (req, res) =>
+module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
@@ -119,12 +90,10 @@ module.exports.dislikeCard = (req, res) =>
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        const ERROR_CODE = 404;
-        res
-          .status(ERROR_CODE)
-          .send({ message: 'Nenhum cartão encontrado com esse id' });
+        throw new NotFoundError('Nenhum cartão encontrado com esse id');
       } else {
-        const ERROR_CODE = 500;
-        res.status(ERROR_CODE).send({ message: 'Um erro ocorreu no servidor' });
+        throw new ServerError('Ocorreu um erro no servidor');
       }
-    });
+    })
+    .catch(next);
+};

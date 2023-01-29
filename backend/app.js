@@ -39,7 +39,7 @@ app.use('/users', usersRouter);
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
-    message: statusCode === 500 ? 'Ocorreu um erro no servidor' : message,
+    message: statusCode === 500 ? 'Ocorreu um erro no servidor APP' : message,
   });
 });
 
