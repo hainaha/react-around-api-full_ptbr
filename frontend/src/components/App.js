@@ -209,7 +209,7 @@ function App() {
       const token = localStorage.getItem('token');
       auth.verifyToken(token).then((res) => {
         if (res) {
-          setUserEmail(res.data.email);
+          setUserEmail(res.email);
           setIsLoggedIn(true);
           history.push('/');
         }

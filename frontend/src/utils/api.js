@@ -21,16 +21,16 @@ class Api {
 
   _loadingData(isLoading, buttonSelector) {
     if (isLoading) {
-      document.querySelector(buttonSelector).textContent = "Salvando...";
+      document.querySelector(buttonSelector).textContent = 'Salvando...';
     } else {
-      document.querySelector(buttonSelector).textContent = "Salvar";
+      document.querySelector(buttonSelector).textContent = 'Salvar';
     }
   }
 
   addCard(data) {
-    this._loadingData(true, ".popup__button");
+    this._loadingData(true, '.popup__button');
     return fetch(`${this._baseUrl}/cards`, {
-      method: "POST",
+      method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -46,12 +46,12 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, ".popup__button"));
+      .finally(this._loadingData(false, '.popup__button'));
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     })
       .then((res) => {
@@ -67,7 +67,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    const likeMethod = isLiked ? "PUT" : "DELETE";
+    const likeMethod = isLiked ? 'PUT' : 'DELETE';
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: likeMethod,
       headers: this._headers,
@@ -99,9 +99,9 @@ class Api {
   }
 
   setUserInfo({ name, about }) {
-    this._loadingData(true, ".popup__button");
+    this._loadingData(true, '.popup__button');
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -117,13 +117,13 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, ".popup__button"));
+      .finally(this._loadingData(false, '.popup__button'));
   }
 
   setUserAvatar(imageLink) {
-    this._loadingData(true, ".popup__button");
+    this._loadingData(true, '.popup__button');
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: imageLink,
@@ -138,15 +138,18 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, ".popup__button"));
+      .finally(this._loadingData(false, '.popup__button'));
   }
 }
 
+const token = localStorage.getItem('token');
+
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/web_ptbr_cohort_01",
+  baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: "0c70245d-208a-4884-9ebb-077526421f9a",
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
   },
 });
 
