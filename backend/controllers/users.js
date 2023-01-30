@@ -57,7 +57,6 @@ module.exports.createUser = (req, res, next) => {
         res.send(user);
       })
       .catch((err) => {
-        // res.send(err);
         if (err.code === 11000) {
           throw new BadRequestError('E-mail já cadastrado');
         } else if (err.name === 'ValidationError') {

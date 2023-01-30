@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middleware/auth');
 var cors = require('cors');
+const { errors, celebrate, Joi } = require('celebrate');
 
 mongoose.connect('mongodb://localhost:27017/aroundb').catch((res) => {
   const ERROR_CODE = 500;
@@ -18,23 +19,37 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.text({ defaultCharset: 'utf-8' }));
 app.use(cors());
 app.options('*', cors());
-// app.get('/', (req, res) => {
-//   res.status(404).send({ message: 'A solicitação não foi encontrada' });
-// });
 
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: '63c73d40108933d35d083c71',
-//   };
+app.post(
+  '/signin',
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().email().required(),
+      password: Joi.string().required().min(6),
+    }),
+  }),
+  login
+);
 
-//   next();
-// });
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post(
+  '/signup',
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().min(2).max(30),
+      about: Joi.string().min(2).max(30),
+      avatar: Joi.string().uri(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required().min(6),
+    }),
+  }),
+  createUser
+);
 
 app.use(auth);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
