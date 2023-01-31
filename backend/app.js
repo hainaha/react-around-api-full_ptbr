@@ -6,6 +6,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middleware/auth');
 var cors = require('cors');
 const { errors, celebrate, Joi } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middleware/logger');
 
 mongoose.connect('mongodb://localhost:27017/aroundb').catch((res) => {
   const ERROR_CODE = 500;
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.text({ defaultCharset: 'utf-8' }));
 app.use(cors());
 app.options('*', cors());
+
+app.use(requestLogger);
 
 app.post(
   '/signin',
@@ -49,12 +52,14 @@ app.use(auth);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
 
+app.use(errorLogger);
+
 app.use(errors());
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
-    message: statusCode === 500 ? 'Ocorreu um erro no servidor APP' : message,
+    message: statusCode === 500 ? 'Ocorreu um erro no servidor' : message,
   });
 });
 
