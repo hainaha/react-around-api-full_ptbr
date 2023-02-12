@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.hainaha.students.nomoredomainssbs.ru';
 
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -51,25 +51,3 @@ export const verifyToken = (token) => {
     .then((res) => res.json())
     .then((data) => data);
 };
-
-//fetch de teste de login
-fetch('http://localhost:3000/signin', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ email: 'email2@email.com', password: '123456' }),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return data;
-    }
-  })
-  .then((data) => {
-    if (data.error) {
-      throw new Error(data.error);
-    }
-  });
