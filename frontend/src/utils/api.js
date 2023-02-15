@@ -145,7 +145,7 @@ class Api {
 const token = localStorage.getItem('token');
 
 const api = new Api({
-  baseUrl: 'https://api.hainaha.students.nomoredomainssbs.ru',
+  baseUrl: 'http://localhost:3000',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

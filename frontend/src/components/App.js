@@ -38,7 +38,14 @@ function App() {
     password: '',
   });
   const history = useHistory();
+  // const [userEmail, setUserEmail] = useState({ email: '' });
   const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    api.getUserData().then((data) => {
+      setCurrentUser(data);
+    });
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -141,6 +148,12 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    api.getInitialCards().then((initialCards) => {
+      setCards(initialCards.reverse());
+    });
+  }, []);
+
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
@@ -194,29 +207,13 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
-      auth
-        .verifyToken(token)
-        .then((res) => {
-          if (res) {
-            setUserEmail(res.email);
-            setIsLoggedIn(true);
-          }
-        })
-        .then(() => {
+      auth.verifyToken(token).then((res) => {
+        if (res) {
+          setUserEmail(res.email);
+          setIsLoggedIn(true);
           history.push('/');
-        })
-        .then(() => {
-          api.getUserData().then((data) => {
-            setCurrentUser(data);
-          });
-        })
-        .then(() => {
-          api.getInitialCards().then((initialCards) => {
-            setCards(initialCards.reverse());
-          });
-        })
-
-        .catch((err) => console.log(err));
+        }
+      });
     }
   }, [history]);
 
