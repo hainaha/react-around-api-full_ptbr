@@ -1,4 +1,8 @@
-export const BASE_URL = 'https://api.hainaha.students.nomoredomainssbs.ru';
+const { REACT_APP_ENV, REACT_APP_APIDOMAIN } = process.env;
+export const BASE_URL =
+  REACT_APP_ENV === 'production'
+    ? REACT_APP_APIDOMAIN
+    : 'http://localhost:3000';
 
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {

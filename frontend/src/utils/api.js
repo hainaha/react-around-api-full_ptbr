@@ -1,3 +1,5 @@
+const { REACT_APP_ENV, REACT_APP_APIDOMAIN } = process.env;
+
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -145,7 +147,10 @@ class Api {
 const token = localStorage.getItem('token');
 
 const api = new Api({
-  baseUrl: 'https://api.hainaha.students.nomoredomainssbs.ru',
+  baseUrl:
+    REACT_APP_ENV === 'production'
+      ? REACT_APP_APIDOMAIN
+      : 'http://localhost:3000',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
