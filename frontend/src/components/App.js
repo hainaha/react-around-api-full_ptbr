@@ -169,7 +169,7 @@ function App() {
       })
       .then((res) => setIsSubscribePopupOpen(true))
       .catch((err) => {
-        console.log(err);
+        alert('Ocorreu um erro no registro');
         setIsSubscribeSuccessful(false);
         setIsSubscribePopupOpen(true);
       });
@@ -187,7 +187,7 @@ function App() {
       .then((res) => setIsLoggedIn(true))
       .then((res) => history.push('/'))
       .catch((err) => {
-        console.log(err);
+        alert('Ocorreu um erro no login');
       });
   }
 

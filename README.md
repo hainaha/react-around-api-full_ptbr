@@ -18,4 +18,5 @@ Front-end: React, Create React App, CSS semântico, metodologia BEM para nomencl
 Back-end: Node, Express, MongoDB e Mongoose.
 
 **Link para acessar o projeto publicado no Google Cloud**
+
 [https://hainaha.students.nomoredomainssbs.ru/](https://hainaha.students.nomoredomainssbs.ru/).

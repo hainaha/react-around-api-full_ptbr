@@ -9,16 +9,12 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   _loadingData(isLoading, buttonSelector) {
@@ -45,9 +41,6 @@ class Api {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      })
       .finally(this._loadingData(false, '.popup__button'));
   }
 
@@ -55,17 +48,13 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          // return res.json();
-          return cardId;
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        // return res.json();
+        return cardId;
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
@@ -73,31 +62,23 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: likeMethod,
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   getUserData() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   setUserInfo({ name, about }) {
@@ -116,9 +97,6 @@ class Api {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-      .catch((err) => {
-        console.log(err);
-      })
       .finally(this._loadingData(false, '.popup__button'));
   }
 
@@ -136,9 +114,6 @@ class Api {
           return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       })
       .finally(this._loadingData(false, '.popup__button'));
   }
